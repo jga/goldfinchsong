@@ -3,4 +3,4 @@ Utilities
 =========
 
 .. automodule:: goldfinchsong.utils
-   :members:
+    :members:

@@ -30,9 +30,9 @@ setup(
     license="MIT",
     long_description=get_readme(),
     name='goldfinchsong',
-    packages=find_packages(include=['goldfinchsong, goldfinchsong.*'],
-                           exclude=['test, test.*']),
+    packages=find_packages(include=['goldfinchsong', 'goldfinchsong.*'],
+                           exclude=['test', 'test.*']),
     platforms=['Any'],
     url='https://github.com/jga/goldfinchsong',
-    version='0.1.1',
+    version='0.1.2',
 )
