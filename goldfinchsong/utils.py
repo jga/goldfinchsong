@@ -10,7 +10,7 @@ import tweepy
 def access_api(credentials):
     """
     Arguments:
-        credentials (dict): Authentication and access credentials
+        credentials (dict): Authentication and access credentials.
 
     Returns:
         A tweepy API instance.
@@ -68,7 +68,6 @@ def assemble_elided_status(complete_words, elided_words):
 
 def apply_vowel_elision(text, maximum_length=117):
     """
-
     Removes a strings non-boundary vowels until it does not exceed the maximum character length.
 
     Args:
@@ -151,10 +150,13 @@ def to_compact_text(candidate_text, maximum_length=117, text_conversions=None):
 
     This is the sequence of transformations deployed:
 
+    - If the text is already equal to or under the maximum, no transformations
+      are applied.
     - Each text conversion is attempted; after each attempt, the length of
       the resulting text is checked and immediately returned if the transformed
       text does not exceed the maximum length.
-    - Non-boundary vowels are removed sequentially from the last word until the first.
+    - Non-boundary (i.e. internal to the word, so not the first or last letter)
+      vowels are removed sequentially from the last word until the first.
       A length check occurs after each word transformation and the text is immediately
       returned if does not exceed the maximum.
     - If the text is still too long, then words are deleted from last to first until
@@ -164,9 +166,9 @@ def to_compact_text(candidate_text, maximum_length=117, text_conversions=None):
         candidate_text (str): Original text before function processing.
         maximum_length (int): The maximum character length for the text.
         text_conversions (dict): Keys represent full-length versions of a word.
-            If the string value paired with the key is an abbreviated form that may
-            be used by the function in an attempt to reduce the length of the
-            candidate text.
+            The string value paired with the key is an abbreviated form of the
+            keyed word that may be used by the function in an attempt to reduce
+            the length of the candidate text.
 
     Returns:
         str: A text string that shorter than the passed maximum length argument.
@@ -190,6 +192,12 @@ def to_compact_text(candidate_text, maximum_length=117, text_conversions=None):
 
 def extract_status_text(file_name, text_conversions, maximum_length=117):
     """
+
+    Provides a tweet's text status based on a file name.
+
+    As part of generating the status, the function transforms
+    underscores ``_`` into blank spaces. Use underscores to
+    create white space in your text status.
 
     An image link consumes 23 characters, leaving 117 for text.
 

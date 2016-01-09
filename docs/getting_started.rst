@@ -103,6 +103,34 @@ in the the configuration file or pass it as the value for the ``--images`` argum
 run the ``goldfinchsong`` command.  Similarly, you can alter the expected location/name of configuration
 file by passing it as the value for the ``--conf`` argument when you run the ``goldfinchsong`` command.
 
+Preparing your image names
+--------------------------
+
+When your run the ``goldfinchsong`` command, it generates a status text based on your
+images file name. The status text must not exceed the character constraints imposed by
+twitter but it should also remain legible.
+
+To create a status text, ``goldfinchsong`` first transforms all underscores to blank spaces.
+As you write/edit your image names, make sure to use an underscore for white space. Then
+the transformation logic follows these steps:
+
+- If the text is already equal to or under the maximum, no transformations
+  are applied.
+- Each text conversion is attempted; after each attempt, the length of
+  the resulting text is checked and immediately returned if the transformed
+  text does not exceed the maximum length.
+- Non-boundary (i.e. internal to the word, so not the first or last letter)
+  vowels are removed sequentially from the last word until the first.
+  A length check occurs after each word transformation and the text is immediately
+  returned if does not exceed the maximum.
+- If the text is still too long, then words are deleted from last to first until
+  the resulting text does not exceed the maximum length.
+
+By default, the maximum character length allowed is 117 characters.
+
+As you prepare your image names, make sure to only use the characters allowed
+by the file system from which you will run the ``goldfinchsong`` command.
+
 A simple cron job
 -----------------
 

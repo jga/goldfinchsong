@@ -12,7 +12,7 @@ def get_image_directory(command_line_input, active_configuration):
     Provides path to image directory.
 
     Arguments:
-        command_line_input (str | None): A path that may optionally be submitted by user. A string
+        command_line_input (str | ``None``): A path that may optionally be submitted by user. A string
             or ``None`` are expected types.
         active_configuration (dict): Active configuration options.
 
