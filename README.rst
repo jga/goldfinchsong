@@ -48,6 +48,11 @@ From the top project directory, run::
 Releases
 --------
 
-0.1.1 Documentation patch
+**0.1.2** 1/9/16
+setup.py patch
 
-0.1.0 Initial release
+**0.1.1** 1/9/16
+Documentation patch
+
+**0.1.0** 1/8/16
+Initial release
