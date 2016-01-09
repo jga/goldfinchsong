@@ -1,5 +1,7 @@
-"""Utilities module. Almost all **goldfinchsong** logic is handled by the
-functions in this module. It's the workhorse of the package."""
+"""
+Utilities module. Almost all **goldfinchsong** logic is handled by the
+functions in this module. It's the workhorse of the package.
+"""
 import random
 import re
 from os import listdir
@@ -216,7 +218,7 @@ def extract_status_text(file_name, text_conversions, maximum_length=117):
     text = trim_file_extension(file_name)
     text = text.replace('_', ' ')
     compact_text = to_compact_text(text, text_conversions=text_conversions,
-                               maximum_length=maximum_length)
+                                   maximum_length=maximum_length)
     return compact_text
 
 
@@ -245,4 +247,3 @@ def load_content(image_directory, text_conversions=None):
         return content
     else:
         return None
-

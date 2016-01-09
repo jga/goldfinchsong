@@ -49,4 +49,5 @@ Releases
 --------
 
 0.1.1 Documentation patch
+
 0.1.0 Initial release
