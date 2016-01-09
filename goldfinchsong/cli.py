@@ -60,7 +60,7 @@ def parse_configuration(config_parser):
 
 
 @click.command()
-@click.argument('--action', default='post')
+@click.option('--action', default='post')
 @click.option('--conf', default='goldfinchsong.ini')
 @click.option('--images', default=None)
 def run(action, conf, images):
