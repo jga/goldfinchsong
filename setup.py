@@ -25,7 +25,7 @@ setup(
             'goldfinchsong=goldfinchsong.cli:run',
         ],
     },
-    install_requires=['tweepy'],
+    install_requires=['click', 'tweepy'],
     keywords="twitter api images",
     license="MIT",
     long_description=get_readme(),
