@@ -22,7 +22,7 @@ LOGGER_CONFIG = {
         }
     },
     'loggers': {
-        'goldfinch': {
+        'goldfinchsong': {
             'handlers': ['console'],
             'propagate': True,
             'level': 'INFO',

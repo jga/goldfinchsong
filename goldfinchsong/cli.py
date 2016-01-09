@@ -39,21 +39,21 @@ def parse_configuration(config_parser):
             any image configuration information made available.
     """
     active_configuration = dict()
-    active_configuration['credentials'] = config_parser['goldfinch']
-    if config_parser.has_section('goldfinch.log'):
-        if 'log_level' in config_parser['goldfinch.log']:
-            active_configuration['log_level'] = config_parser['goldfinch.log']['log_level']
-            LOGGER_CONFIG['loggers']['goldfinch']['level'] = active_configuration['log_level']
+    active_configuration['credentials'] = config_parser['goldfinchsong']
+    if config_parser.has_section('goldfinchsong.log'):
+        if 'log_level' in config_parser['goldfinchsong.log']:
+            active_configuration['log_level'] = config_parser['goldfinchsong.log']['log_level']
+            LOGGER_CONFIG['loggers']['goldfinchsong']['level'] = active_configuration['log_level']
             log_config.dictConfig(LOGGER_CONFIG)
     active_configuration['text_conversions'] = None
-    if config_parser.has_section('goldfinch.conversions'):
-        pairings = config_parser['goldfinch.conversions']
+    if config_parser.has_section('goldfinchsong.conversions'):
+        pairings = config_parser['goldfinchsong.conversions']
         text_conversions = OrderedDict()
         for abbreviated, original in pairings.items():
             text_conversions[original] = abbreviated
         active_configuration['text_conversions'] = text_conversions
-    if config_parser.has_section('goldfinch.images'):
-        images_configuration = config_parser['goldfinch.images']
+    if config_parser.has_section('goldfinchsong.images'):
+        images_configuration = config_parser['goldfinchsong.images']
         if 'image_directory' in images_configuration:
             active_configuration['image_directory'] = images_configuration['image_directory']
     return active_configuration
@@ -61,7 +61,7 @@ def parse_configuration(config_parser):
 
 @click.command()
 @click.argument('--action', default='post')
-@click.option('--conf', default='goldfinch.ini')
+@click.option('--conf', default='goldfinchsong.ini')
 @click.option('--images', default=None)
 def run(action, conf, images):
     """
@@ -70,14 +70,14 @@ def run(action, conf, images):
     Arguments:
         action (str): An action name.
         conf (str): File path for a configuration file. By default, this
-            function looks for ``goldfinch.ini`` under the directory from
+            function looks for ``goldfinchsong.ini`` under the directory from
             which the user executes the function.
         images (str): File path to a directory with images that will be uploaded by tweets.
     """
     config_parser = configparser.ConfigParser()
     config_parser.optionxform = str
     config_parser.read(conf)
-    if config_parser.has_section('goldfinch'):
+    if config_parser.has_section('goldfinchsong'):
         active_configuration = parse_configuration(config_parser)
         if action == 'post':
             image_directory = get_image_directory(images, active_configuration)

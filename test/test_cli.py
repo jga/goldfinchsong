@@ -1,6 +1,6 @@
 import unittest
 import configparser
-from goldfinch import cli
+from goldfinchsong import cli
 
 
 class CommandLineInterfaceTests(unittest.TestCase):
@@ -8,14 +8,14 @@ class CommandLineInterfaceTests(unittest.TestCase):
     def test_configuration_file_parsing(self):
         config_parser = configparser.ConfigParser()
         config_parser.optionxform = str
-        config_parser.read('test/goldfinch.ini')
+        config_parser.read('test/goldfinchsong.ini')
         active_configuration = cli.parse_configuration(config_parser)
         credentials = active_configuration['credentials']
         text_conversions = active_configuration['text_conversions']
-        self.assertEqual(credentials['consumer_key'], 'goldfinch-consumer-key')
-        self.assertEqual(credentials['consumer_secret'], 'goldfinch-consumer-secret')
-        self.assertEqual(credentials['access_token'], 'goldfinch-access-token')
-        self.assertEqual(credentials['access_token_secret'], 'goldfinch-access-token-secret')
+        self.assertEqual(credentials['consumer_key'], 'goldfinchsong-consumer-key')
+        self.assertEqual(credentials['consumer_secret'], 'goldfinchsong-consumer-secret')
+        self.assertEqual(credentials['access_token'], 'goldfinchsong-access-token')
+        self.assertEqual(credentials['access_token_secret'], 'goldfinchsong-access-token-secret')
         self.assertEqual(text_conversions['etcetera'], 'etc')
         self.assertEqual(text_conversions['for your information'], 'FYI')
         self.assertEqual(text_conversions['Better View Desired'], 'BVD')
@@ -32,7 +32,7 @@ class CommandLineInterfaceTests(unittest.TestCase):
         # config parser should return an OrderedDict
         config_parser = configparser.ConfigParser()
         config_parser.optionxform = str
-        config_parser.read('test/goldfinch.ini')
+        config_parser.read('test/goldfinchsong.ini')
         active_configuration = cli.parse_configuration(config_parser)
         text_conversions = active_configuration['text_conversions']
         index = 0

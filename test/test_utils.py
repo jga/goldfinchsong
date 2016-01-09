@@ -1,15 +1,15 @@
 from collections import OrderedDict
 import unittest
-from goldfinch import utils
+from goldfinchsong import utils
 
-IMAGE_NAMES = ['goldfinch1.jpg', 'goldfinch2.jpg', 'goldfinch3.jpg',
-               'goldfinch4.jpg', 'goldfinch5.jpg']
+IMAGE_NAMES = ['goldfinchsong1.jpg', 'goldfinchsong2.jpg', 'goldfinchsong3.jpg',
+               'goldfinchsong4.jpg', 'goldfinchsong5.jpg']
 
-TEST_TEXT1 = 'This is a test of the goldfinch project. This test checks ' \
+TEST_TEXT1 = 'This is a test of the goldfinchsong project. This test checks ' \
             'abbreviations, vowel elision, length checking, and other logic. ' \
             'Tests are important!'
 
-TEST_TEXT2 = 'This is a test of the goldfinch project. Tests ' \
+TEST_TEXT2 = 'This is a test of the goldfinchsong project. Tests ' \
             'abbreviations, vowel elision, length checking, and other logic. ' \
             'Tests are important!'
 
@@ -19,7 +19,7 @@ class UtilitiesTests(unittest.TestCase):
     def test_apply_abbreviations(self):
         text_conversions = {
             'abbreviations': 'abbr',
-            'goldfinch': 'gf',
+            'goldfinchsong': 'gf',
             'important': 'impt'
         }
         # exhausts all conversions before reaching limit
@@ -33,7 +33,7 @@ class UtilitiesTests(unittest.TestCase):
 
     def test_apply_vowel_elision(self):
         result_text = utils.apply_vowel_elision(TEST_TEXT1)
-        expected_text = 'This is a test of the goldfinch prjct. Ths tst chcks ' \
+        expected_text = 'This is a test of the goldfinchsong prjct. Ths tst chcks ' \
                         'abbrvtns, vwl elsn, lngth chckng, and othr lgc. Tsts ' \
                         'are imprtnt!'
         self.assertEqual(expected_text, result_text)
@@ -46,7 +46,7 @@ class UtilitiesTests(unittest.TestCase):
 
     def test_chop_words(self):
         result_text = utils.chop_words(TEST_TEXT1)
-        expected_text = 'This is a test of the goldfinch project. This test checks ' \
+        expected_text = 'This is a test of the goldfinchsong project. This test checks ' \
                         'abbreviations, vowel elision, length checking, and other'
         self.assertEqual(expected_text, result_text)
 
@@ -107,7 +107,7 @@ class UtilitiesTests(unittest.TestCase):
     def test_to_compact_text(self):
         text_conversions = {
             'abbreviations': 'abbrs',
-            'goldfinch': 'gfnch',
+            'goldfinchsong': 'gfnch',
             'important': 'importnt'
         }
         candidate_text1 = utils.to_compact_text(TEST_TEXT1, 100, text_conversions)
@@ -124,14 +124,14 @@ class UtilitiesTests(unittest.TestCase):
     def test_extract_status_text(self):
         conversion_data = (
             ('abbreviations', 'abbrs'),
-            ('goldfinch', 'gfnch'),
+            ('goldfinchsong', 'gfnch'),
             ('important', 'importnt'),
         )
         text_conversions = OrderedDict(conversion_data)
-        file = 'Some_goldfinch_image-file_with_a_very_long_set_of_' \
+        file = 'Some_goldfinchsong_image-file_with_a_very_long_set_of_' \
                'characters_and_abbreviations_that_conveys_important_info.png'
         candidate_text1 = utils.extract_status_text(file, text_conversions, maximum_length=100,)
-        expected_text1 = 'Some goldfinch image-file with a very long set of characters and abbrs that conveys important info'
+        expected_text1 = 'Some goldfinchsong image-file with a very long set of characters and abbrs that conveys important info'
         self.assertEqual(expected_text1, candidate_text1)
         candidate_text2 = utils.extract_status_text(file, text_conversions, maximum_length=70,)
         expected_text2 = 'Sme gfnch imge-fle wth a vry lng st of chrctrs and abbrs tht cnvys'

@@ -22,7 +22,7 @@ setup(
     description="Easily post tweets from an image library.",
     entry_points={
         'console_scripts': [
-            'goldfinch=goldfinch.cli:run',
+            'goldfinchsong=goldfinchsong.cli:run',
         ],
     },
     install_requires=['tweepy'],
@@ -30,9 +30,9 @@ setup(
     license="MIT",
     long_description=get_readme(),
     name='goldfinchsong',
-    packages=find_packages(include=['goldfinch, goldfinch.*'],
+    packages=find_packages(include=['goldfinchsong, goldfinchsong.*'],
                            exclude=['test, test.*']),
     platforms=['Any'],
-    url='https://github.com/jga/goldfinch',
+    url='https://github.com/jga/goldfinchsong',
     version='0.1.0',
 )

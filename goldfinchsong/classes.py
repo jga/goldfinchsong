@@ -1,4 +1,4 @@
-"""Classes module. These are objects **goldfinch** uses to keep state and perform business logic."""
+"""Classes module. These are objects **goldfinchsong** uses to keep state and perform business logic."""
 from . import utils
 
 

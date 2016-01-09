@@ -1,11 +1,11 @@
-.. goldfinch documentation master file, created by
+.. goldfinchsong documentation master file, created by
    sphinx-quickstart on Mon Dec 28 18:28:15 2015.
 
-===========================
-**goldfinch** Documentation
-===========================
+===============================
+**goldfinchsong** Documentation
+===============================
 
-The **goldfinch** package helps users easily post tweets from an image library.
+The **goldfinchsong** package helps users easily post tweets from an image library.
 
 Why?
 ----

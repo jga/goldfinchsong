@@ -2,5 +2,5 @@
 Classes
 =======
 
-.. automodule:: goldfinch.classes
+.. automodule:: goldfinchsong.classes
     :members:

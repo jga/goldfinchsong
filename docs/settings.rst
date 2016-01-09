@@ -2,5 +2,5 @@
 Settings
 ========
 
-.. automodule:: goldfinch.settings
+.. automodule:: goldfinchsong.settings
     :members:

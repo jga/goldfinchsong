@@ -1,4 +1,4 @@
-"""Utilities module. Almost all **goldfinch** logic is handled by the
+"""Utilities module. Almost all **goldfinchsong** logic is handled by the
 functions in this module. It's the workhorse of the package."""
 import random
 import re

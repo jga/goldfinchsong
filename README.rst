@@ -1,6 +1,6 @@
-=========
-goldfinch
-=========
+=============
+goldfinchsong
+=============
 
 Easily automate image tweets.
 
@@ -21,13 +21,13 @@ Install
 
 Use ``pip``::
 
-    pip install goldfinchsong
+    pip install goldfinchsongsong
 
 Documentation
 -------------
 
-You can read the documentation on goldfinch's
-`Read The Docs page <http://goldfinch.readthedocs.org/en/latest/>`_
+You can read the documentation on goldfinchsong's
+`Read The Docs page <http://goldfinchsong.readthedocs.org/en/latest/>`_.
 
 Contributing
 ------------
@@ -35,12 +35,12 @@ Contributing
 The Github repository is the issue tracker. Please submit issues here. Pull requests are appreciated.
 
 Please follow the Django Community Code of Conduct (https://www.djangoproject.com/conduct/) while
-contributing to **goldfinch**.
+contributing to **goldfinchsong**.
 
 Tests
 -----
 
-Use ``py.test``. Make sure you have it installed. Clone the **goldfinch** repository.
+Use ``py.test``. Make sure you have it installed. Clone the **goldfinchsong** repository.
 From the top project directory, run::
 
     py.test test

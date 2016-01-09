@@ -2,5 +2,5 @@
 Utilities
 =========
 
-.. automodule:: goldfinch.utils
+.. automodule:: goldfinchsong.utils
     :members:
