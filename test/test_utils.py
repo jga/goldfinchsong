@@ -2,8 +2,8 @@ from collections import OrderedDict
 import unittest
 from goldfinchsong import utils
 
-IMAGE_NAMES = ['goldfinchsong1.jpg', 'goldfinchsong2.jpg', 'goldfinchsong3.jpg',
-               'goldfinchsong4.jpg', 'goldfinchsong5.jpg']
+IMAGE_NAMES = ['goldfinch1.jpg', 'goldfinch2.jpg', 'goldfinch3.jpg',
+               'goldfinch4.jpg', 'goldfinch5.jpg']
 
 TEST_TEXT1 = 'This is a test of the goldfinchsong project. This test checks ' \
             'abbreviations, vowel elision, length checking, and other logic. ' \
@@ -33,7 +33,7 @@ class UtilitiesTests(unittest.TestCase):
 
     def test_apply_vowel_elision(self):
         result_text = utils.apply_vowel_elision(TEST_TEXT1)
-        expected_text = 'This is a test of the goldfinchsong prjct. Ths tst chcks ' \
+        expected_text = 'This is a tst of the gldfnchsng prjct. Ths tst chcks ' \
                         'abbrvtns, vwl elsn, lngth chckng, and othr lgc. Tsts ' \
                         'are imprtnt!'
         self.assertEqual(expected_text, result_text)
@@ -47,7 +47,7 @@ class UtilitiesTests(unittest.TestCase):
     def test_chop_words(self):
         result_text = utils.chop_words(TEST_TEXT1)
         expected_text = 'This is a test of the goldfinchsong project. This test checks ' \
-                        'abbreviations, vowel elision, length checking, and other'
+                        'abbreviations, vowel elision, length checking, and'
         self.assertEqual(expected_text, result_text)
 
     def test_is_image(self):
@@ -131,7 +131,7 @@ class UtilitiesTests(unittest.TestCase):
         file = 'Some_goldfinchsong_image-file_with_a_very_long_set_of_' \
                'characters_and_abbreviations_that_conveys_important_info.png'
         candidate_text1 = utils.extract_status_text(file, text_conversions, maximum_length=100,)
-        expected_text1 = 'Some goldfinchsong image-file with a very long set of characters and abbrs that conveys important info'
+        expected_text1 = 'Some gfnch image-file with a very long set of characters and abbrs that conveys important info'
         self.assertEqual(expected_text1, candidate_text1)
         candidate_text2 = utils.extract_status_text(file, text_conversions, maximum_length=70,)
         expected_text2 = 'Sme gfnch imge-fle wth a vry lng st of chrctrs and abbrs tht cnvys'
