@@ -34,5 +34,5 @@ setup(
                            exclude=['test, test.*']),
     platforms=['Any'],
     url='https://github.com/jga/goldfinchsong',
-    version='0.1.0',
+    version='0.1.1',
 )
