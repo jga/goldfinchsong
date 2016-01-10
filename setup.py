@@ -10,7 +10,6 @@ setup(
     author="Julio Gonzalez Altamirano",
     author_email='devjga@gmail.com',
     classifiers=[
-        'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
@@ -34,5 +33,5 @@ setup(
                            exclude=['test', 'test.*']),
     platforms=['Any'],
     url='https://github.com/jga/goldfinchsong',
-    version='0.1.2',
+    version='0.1.3',
 )
