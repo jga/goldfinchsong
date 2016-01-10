@@ -48,7 +48,7 @@ From the top project directory, run::
 Releases
 --------
 **0.1.3**
-1/x/16
+1/10/16
 
 New: file logging.
 New: configure filename for file log in **ini** file.
