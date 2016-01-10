@@ -3,7 +3,6 @@
 Attributes:
     LOGGER_CONFIG (dict): Logging configuration settings. Includes formatters, handlers, loggers
 """
-
 LOGGER_CONFIG = {
     'version': 1,
     'formatters': {
@@ -19,11 +18,18 @@ LOGGER_CONFIG = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'simple',
+            'filename': 'goldfinchsong.log',
+            'encoding': 'utf-8'
         }
     },
     'loggers': {
         'goldfinchsong': {
-            'handlers': ['console'],
+            'handlers': ['file', 'console'],
             'propagate': True,
             'level': 'INFO',
         },

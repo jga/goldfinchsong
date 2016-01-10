@@ -2,9 +2,12 @@
 from collections import OrderedDict
 import configparser
 from logging import config as log_config
+from logging import getLogger
 import click
 from .classes import Manager
 from .settings import LOGGER_CONFIG
+
+logger = getLogger(__name__)
 
 
 def get_image_directory(command_line_input, active_configuration):
@@ -36,7 +39,7 @@ def parse_configuration(config_parser):
 
     Returns:
         dict: The returned dict containts twitter credentials, any text conversions, and
-            any image configuration information made available.
+            any image and/or log configuration information made available.
     """
     active_configuration = dict()
     active_configuration['credentials'] = config_parser['goldfinchsong']
@@ -44,7 +47,10 @@ def parse_configuration(config_parser):
         if 'log_level' in config_parser['goldfinchsong.log']:
             active_configuration['log_level'] = config_parser['goldfinchsong.log']['log_level']
             LOGGER_CONFIG['loggers']['goldfinchsong']['level'] = active_configuration['log_level']
-            log_config.dictConfig(LOGGER_CONFIG)
+        if 'log_location' in config_parser['goldfinchsong.log']:
+            active_configuration['log_location'] = config_parser['goldfinchsong.log']['log_location']
+            LOGGER_CONFIG['handlers']['file']['filename'] = active_configuration['log_location']
+    log_config.dictConfig(LOGGER_CONFIG)
     active_configuration['text_conversions'] = None
     if config_parser.has_section('goldfinchsong.conversions'):
         pairings = config_parser['goldfinchsong.conversions']
@@ -79,13 +85,15 @@ def run(action, conf, images):
     config_parser.read(conf)
     if config_parser.has_section('goldfinchsong'):
         active_configuration = parse_configuration(config_parser)
+        logger.info('Action requested.')
         if action == 'post':
             image_directory = get_image_directory(images, active_configuration)
             manager = Manager(active_configuration['credentials'],
                               image_directory,
                               active_configuration['text_conversions'])
-            manager.post_tweet()
+            content = manager.post_tweet()
+            logger.info('Send POST with image {0} and text {1}'.format(content[0], content[1]))
         else:
-            print('That command action is not supported.')
+            logger.error('That command action is not supported.')
     else:
-        print('Twitter credentials must be placed within ini file.')
+        logger.error('Twitter credentials must be placed within ini file.')
