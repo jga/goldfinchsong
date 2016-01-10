@@ -71,7 +71,7 @@ Your first configuration
 ------------------------
 
 At a minimum **goldfinchsong** requires your twitter authentication credentials to post. The command line script
-included in the package expects these credentials to be placed in the configuration *ini* file. Read
+included in the package expects these credentials to be placed in a configuration **ini** file. Read
 the :doc:`configuration section </configuration>` for details.
 
 Organizing your production files

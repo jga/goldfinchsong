@@ -17,7 +17,20 @@ This section is must have ``consumer_secret``, ``consumer_key``, ``access_token`
 **[goldfinchsong.log]** (optional)
 
 You can optionally provide an entry keyed to ``log_level`` with a
-Python log level as a the value (e.g. ``INFO``)
+Python log level as a the value (e.g. ``ERROR``)::
+
+    [goldfinchsong.log]
+    log_level=ERROR
+
+
+``log_location`` is an optional entry that sets the path to the file-based log. By default,
+the log is filled at ``goldfinchsong.log``. So, for
+example, if you wanted to have the log go to ``mysong.txt``, you would could create an
+entry like this::
+
+    [goldfinchsong.log]
+    log_location=mysong.txt
+
 
 **[goldfinchsong.conversions]** (optional)
 
@@ -36,6 +49,8 @@ covered by your image library.
 
 ``image_directory`` is an optional entry that sets the path to the image directory from
 which images will be sourced for tweet posts.
+
+
 
 Example ``ini`` file
 --------------------
