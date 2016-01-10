@@ -19,10 +19,13 @@ class Manager:
         """
         Attempts tweet status post with image.
 
+        Returns:
+            tuple: A content tuple with image path and status text.
         Raises:
             Exception: Raises exception if content property is ``None``.
         """
         if self.content is not None:
             self.api.update_with_media(self.content[0], self.content[1])
+            return self.content
         else:
             raise Exception("Can't post a tweet. No content available. Check image directory.")
