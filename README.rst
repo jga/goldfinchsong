@@ -47,12 +47,27 @@ From the top project directory, run::
 
 Releases
 --------
+**0.1.3**
+1/x/16
 
-**0.1.2** 1/9/16
+New: file logging.
+New: configure filename for file log in **ini** file.
+
+
+**0.1.2**
+
+1/9/16
+
 setup.py patch
 
-**0.1.1** 1/9/16
+**0.1.1**
+
+1/9/16
+
 Documentation patch
 
-**0.1.0** 1/8/16
+**0.1.0**
+
+1/8/16
+
 Initial release
