@@ -6,6 +6,7 @@ import random
 import re
 from os import listdir
 from os.path import isfile, join
+from tinydb import TinyDB, Query
 import tweepy
 
 
@@ -115,6 +116,27 @@ def chop_words(text, maximum_length=117):
     return None
 
 
+def get_posted_files(db):
+    posted_files = set()
+    all_tweets = db.all()
+    for tweet in all_tweets:
+        posted_files.add(tweet['image'])
+    return posted_files
+
+
+def get_unused_files(db, available_files):
+    unused_files = list()
+    posted_files = get_posted_files(db)
+    for available_file in available_files:
+        if available_file not in posted_files:
+            unused_files.append(available_file)
+    if len(unused_files) == 0:
+        db.purge()
+        return available_files
+    else:
+        return unused_files
+
+
 def is_image_file(file_name):
     """
     Checks for ``.png``, ``.jpg``, ``.jgpeg``, ``.gif`` file extensions.
@@ -222,11 +244,12 @@ def extract_status_text(file_name, text_conversions, maximum_length=117):
     return compact_text
 
 
-def load_content(image_directory, text_conversions=None):
+def load_content(db, image_directory, text_conversions=None):
     """
     Generates content tuple after selecting random image from image directory.
 
     Args:
+        db: A TinyDB instance.
         image_directory (str): File path to image directory.
         text_conversions (dict): Keys represent full-length versions of a word.
             If the string value paired with the key is an abbreviated form that may
@@ -234,16 +257,17 @@ def load_content(image_directory, text_conversions=None):
             candidate text.
 
     Returns:
-        tuple or ``None``: A content tuple with image path and status text
-            if an image file is available in image directory. ``None`` otherwise.
+        tuple or ``None``: A content tuple with full image path, status text, and
+            image file, if an image file is available in image directory. ``None`` otherwise.
 
     """
-    files = [file for file in listdir(image_directory) if isfile(join(image_directory, file))]
-    selected_file = random.choice(files)
-    if is_image_file(selected_file):
-        with_full_path = join(image_directory, selected_file)
-        text = extract_status_text(selected_file, text_conversions)
-        content = (with_full_path, text)
-        return content
-    else:
-        return None
+    available_files = [file for file in listdir(image_directory) if isfile(join(image_directory, file))]
+    if len(available_files):
+        unused_files = get_unused_files(db, available_files)
+        selected_file = random.choice(unused_files)
+        if is_image_file(selected_file):
+            with_full_path = join(image_directory, selected_file)
+            text = extract_status_text(selected_file, text_conversions)
+            content = (with_full_path, text, selected_file)
+            return content
+    return None
