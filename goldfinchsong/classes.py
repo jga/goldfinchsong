@@ -1,4 +1,5 @@
 """Classes module. These are objects **goldfinchsong** uses to keep state and perform business logic."""
+from datetime import datetime
 from . import utils
 
 
@@ -12,7 +13,8 @@ class Manager:
         api: A tweepy API instance.
     """
     def __init__(self, credentials=None, db=None, image_directory=None, text_conversions=None):
-        self.content = utils.load_content(image_directory, text_conversions)
+        self.db = db
+        self.content = utils.load_content(db, image_directory, text_conversions)
         self.api = utils.access_api(credentials)
 
     def post_tweet(self):
@@ -20,12 +22,16 @@ class Manager:
         Attempts tweet status post with image.
 
         Returns:
-            tuple: A content tuple with image path and status text.
+            tuple: A content tuple with the full image path, status text,
+                and image file name.
         Raises:
             Exception: Raises exception if content property is ``None``.
         """
         if self.content is not None:
             self.api.update_with_media(self.content[0], self.content[1])
+            delivery_timestamp = datetime.now().isoformat()
+            tweet = {'image': self.content[3], 'delivered_on': delivery_timestamp}
+            self.db.insert(tweet)
             return self.content
         else:
             raise Exception("Can't post a tweet. No content available. Check image directory.")
