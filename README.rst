@@ -47,13 +47,20 @@ From the top project directory, run::
 
 Releases
 --------
+
+**0.1.4**
+
+2/4/16
+
+New: Image posting history is kept, avoiding repeats.
+
 **0.1.3**
+
 1/10/16
 
 New: file logging.
 
 New: configure filename for file log in **ini** file.
-
 
 **0.1.2**
 
