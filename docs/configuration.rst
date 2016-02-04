@@ -14,7 +14,7 @@ Python ``ini`` file options
 
 This section must have ``consumer_secret``, ``consumer_key``, ``access_token``, ``access_token_secret`` entries.
 
-**[goldfinchsong.db]**
+**[goldfinchsong.db]** (section required)
 
 This section must have a ``db_location`` entry. The entry indicates were TinyDB will save
 data. It must be a file with a ``.json`` file extension.
