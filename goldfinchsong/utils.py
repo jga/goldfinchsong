@@ -117,6 +117,16 @@ def chop_words(text, maximum_length=117):
 
 
 def get_posted_files(db):
+    """
+    Extracts a set of image file names for persisted tweets.
+
+    Args:
+        db: TinyDB instance.
+
+    Returns:
+        set
+
+    """
     posted_files = set()
     all_tweets = db.all()
     for tweet in all_tweets:
@@ -125,6 +135,19 @@ def get_posted_files(db):
 
 
 def get_unused_files(db, available_files):
+    """
+    Determines image files that can be used for new image posts
+    by taking out used images from available images. If all
+    images have been used, the database is purged, allowing for
+    repetition of past images.
+
+    Args:
+        db: TinyDB instance.
+        available_files (list): All of the existing files in the image directory.
+
+    Returns:
+        list
+    """
     unused_files = list()
     posted_files = get_posted_files(db)
     for available_file in available_files:

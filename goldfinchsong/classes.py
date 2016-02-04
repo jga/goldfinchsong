@@ -15,7 +15,8 @@ class Manager:
     def __init__(self, credentials=None, db=None, image_directory=None, text_conversions=None):
         self.db = db
         self.content = utils.load_content(db, image_directory, text_conversions)
-        self.api = utils.access_api(credentials)
+        if credentials:
+            self.api = utils.access_api(credentials)
 
     def post_tweet(self):
         """
@@ -30,7 +31,7 @@ class Manager:
         if self.content is not None:
             self.api.update_with_media(self.content[0], self.content[1])
             delivery_timestamp = datetime.now().isoformat()
-            tweet = {'image': self.content[3], 'delivered_on': delivery_timestamp}
+            tweet = {'image': self.content[2], 'delivered_on': delivery_timestamp}
             self.db.insert(tweet)
             return self.content
         else:
