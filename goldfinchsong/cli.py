@@ -92,7 +92,7 @@ def run(action, conf, images):
                               image_directory,
                               active_configuration['text_conversions'])
             content = manager.post_tweet()
-            logger.info('Send POST with image {0} and text {1}'.format(content[0], content[1]))
+            logger.info('Sent POST with image {0} and text {1}'.format(content[0], content[1]))
         else:
             logger.error('That command action is not supported.')
     else:

@@ -14,7 +14,7 @@ Main Features
 Requirements
 ------------
 
-- Python 3. Python 2 is **not** supported and there is not plan to support it.
+- Python 3. Python 2 is **not** supported and there is no plan to support it.
 
 Install
 -------
@@ -51,6 +51,7 @@ Releases
 1/10/16
 
 New: file logging.
+
 New: configure filename for file log in **ini** file.
 
 
