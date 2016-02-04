@@ -4,6 +4,7 @@ import configparser
 from logging import config as log_config
 from logging import getLogger
 import click
+from tinydb import TinyDB
 from .classes import Manager
 from .settings import LOGGER_CONFIG
 
@@ -62,6 +63,10 @@ def parse_configuration(config_parser):
         images_configuration = config_parser['goldfinchsong.images']
         if 'image_directory' in images_configuration:
             active_configuration['image_directory'] = images_configuration['image_directory']
+    if config_parser.has_section('goldfinchsong.db'):
+        db_configuration = config_parser['goldfinchsong.db']
+        if 'db_location' in db_configuration:
+            active_configuration['db_location'] = db_configuration['db_location']
     return active_configuration
 
 
@@ -85,10 +90,12 @@ def run(action, conf, images):
     config_parser.read(conf)
     if config_parser.has_section('goldfinchsong'):
         active_configuration = parse_configuration(config_parser)
-        logger.info('Action requested.')
         if action == 'post':
+            logger.info('POST requested.')
             image_directory = get_image_directory(images, active_configuration)
+            db = TinyDB(active_configuration['db_location'])
             manager = Manager(active_configuration['credentials'],
+                              db,
                               image_directory,
                               active_configuration['text_conversions'])
             content = manager.post_tweet()
@@ -96,4 +103,4 @@ def run(action, conf, images):
         else:
             logger.error('That command action is not supported.')
     else:
-        logger.error('Twitter credentials must be placed within ini file.')
+        logger.error('Twitter credentials and DB settings must be placed within ini file.')
