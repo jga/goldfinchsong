@@ -1,5 +1,6 @@
 from collections import OrderedDict
 import unittest
+from tinydb import TinyDB, storages
 from goldfinchsong import utils
 
 IMAGE_NAMES = ['goldfinch1.jpg', 'goldfinch2.jpg', 'goldfinch3.jpg',
@@ -138,10 +139,52 @@ class UtilitiesTests(unittest.TestCase):
         self.assertEqual(expected_text2, candidate_text2)
 
     def test_load_content(self):
-        image_directory = 'test/images/'
-        content = utils.load_content(image_directory)
+        image_directory = 'tests/images/'
+        db = TinyDB(storage=storages.MemoryStorage)
+        content = utils.load_content(db, image_directory)
         full_image_path = content[0]
         image_file = full_image_path.replace(image_directory, '')
         status_text = content[1]
         self.assertTrue(image_file in IMAGE_NAMES)
         self.assertEqual(image_file.replace('.jpg', ''), status_text)
+
+    def test_get_unused_files(self):
+        available_files = list()
+        for index in range(1,101):
+            image_name = 'image{0}.png'.format(index)
+            available_files.append(image_name)
+        db = TinyDB(storage=storages.MemoryStorage)
+        for id in range(1,52):
+            image_name = 'image{0}.png'.format(id)
+            db.insert({'image': image_name})
+        unused_files = utils.get_unused_files(db, available_files)
+        self.assertEqual(len(unused_files), 49)
+        self.assertEqual(unused_files[0], 'image52.png')
+        self.assertEqual(unused_files[5], 'image57.png')
+        self.assertEqual(unused_files[10], 'image62.png')
+        self.assertEqual(unused_files[15], 'image67.png')
+        self.assertEqual(unused_files[20], 'image72.png')
+        self.assertEqual(unused_files[33], 'image85.png')
+        self.assertEqual(unused_files[48], 'image100.png')
+
+    def test_db_purge_when_all_posted(self):
+        available_files = list()
+        for index in range(1,101):
+            image_name = 'image{0}.png'.format(index)
+            available_files.append(image_name)
+        db = TinyDB(storage=storages.MemoryStorage)
+        for id in range(1,106):
+            image_name = 'image{0}.png'.format(id)
+            db.insert({'image': image_name})
+        self.assertEqual(len(db.all()), 105)
+        unused_files = utils.get_unused_files(db, available_files)
+        self.assertEqual(len(unused_files), 100)
+        self.assertEqual(unused_files[0], 'image1.png')
+        self.assertEqual(unused_files[5], 'image6.png')
+        self.assertEqual(unused_files[10], 'image11.png')
+        self.assertEqual(unused_files[33], 'image34.png')
+        self.assertEqual(unused_files[50], 'image51.png')
+
+
+
+
