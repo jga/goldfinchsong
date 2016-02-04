@@ -11,7 +11,7 @@ class Manager:
             and status text string.
         api: A tweepy API instance.
     """
-    def __init__(self, credentials=None, image_directory=None, text_conversions=None):
+    def __init__(self, credentials=None, db=None, image_directory=None, text_conversions=None):
         self.content = utils.load_content(image_directory, text_conversions)
         self.api = utils.access_api(credentials)
 
