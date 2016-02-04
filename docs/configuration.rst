@@ -12,7 +12,12 @@ Python ``ini`` file options
 
 **[goldfinchsong]** (section required)
 
-This section is must have ``consumer_secret``, ``consumer_key``, ``access_token``, ``access_token_secret`` entries.
+This section must have ``consumer_secret``, ``consumer_key``, ``access_token``, ``access_token_secret`` entries.
+
+**[goldfinchsong.db]**
+
+This section must have a ``db_location`` entry. The entry indicates were TinyDB will save
+data. It must be a file with a ``.json`` file extension.
 
 **[goldfinchsong.log]** (optional)
 
@@ -64,6 +69,8 @@ is required.
     consumer_secret=goldfinchsong-consumer-secret
     access_token=goldfinchsong-access-token
     access_token_secret=goldfinchsong-access-token-secret
+    [goldfinchsong.db]
+    db_location=goldfinchsong_db.json
     [goldfinchsong.images]
     image_directory=my-alternative-directory/images
     [goldfinchsong.log]

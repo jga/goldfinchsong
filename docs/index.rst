@@ -27,7 +27,6 @@ expected configuration file. Finally, the documentation covers each package modu
    configuration
    classes
    cli
-   settings
    utils
 
 Indices and tables
@@ -35,5 +34,4 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
 

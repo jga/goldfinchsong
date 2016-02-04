@@ -24,7 +24,7 @@ functions in the :doc:`utilities </utils>` module.
 Install
 -------
 
-Use ``pip`` to install.
+Use ``pip`` to install.::
 
     pip install goldfinchsongsong
 
