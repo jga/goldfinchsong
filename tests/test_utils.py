@@ -1,5 +1,7 @@
 from collections import OrderedDict
+from datetime import datetime, timezone
 import unittest
+from os.path import join
 from tinydb import TinyDB, storages
 from goldfinchsong import utils
 
@@ -13,6 +15,38 @@ TEST_TEXT1 = 'This is a test of the goldfinchsong project. This test checks ' \
 TEST_TEXT2 = 'This is a test of the goldfinchsong project. Tests ' \
             'abbreviations, vowel elision, length checking, and other logic. ' \
             'Tests are important!'
+
+
+class LoadContentTests(unittest.TestCase):
+
+    def test_basic_load(self):
+        image_directory = 'tests/images/'
+        db = TinyDB(storage=storages.MemoryStorage)
+        content = utils.load_content(db, image_directory)
+        full_image_path = content[0]
+        image_file = full_image_path.replace(image_directory, '')
+        status_text = content[1]
+        self.assertTrue(image_file in IMAGE_NAMES)
+        self.assertEqual(image_file.replace('.jpg', ''), status_text)
+
+    def test_storage_in_db(self):
+        image_directory = 'tests/images/'
+        # let's load a list of tweets into the db
+        db = TinyDB(storage=storages.MemoryStorage)
+        image_names = [
+            'goldfinch1.jpg',
+            'goldfinch2.jpg',
+            'goldfinch3.jpg',
+            'goldfinch4.jpg'
+        ]
+        for image_name in image_names:
+            delivery_timestamp = datetime.now(tz=timezone.utc).isoformat()
+            tweet = {'image': image_name, 'delivered_on': delivery_timestamp}
+            db.insert(tweet)
+        content = utils.load_content(db, image_directory)
+        self.assertEqual(content[2], 'goldfinch5.jpg')
+        tweets = db.all()
+        self.assertEqual(len(tweets), 4, msg=tweets)
 
 
 class UtilitiesTests(unittest.TestCase):
@@ -137,16 +171,6 @@ class UtilitiesTests(unittest.TestCase):
         candidate_text2 = utils.extract_status_text(file, text_conversions, maximum_length=70,)
         expected_text2 = 'Sme gfnch imge-fle wth a vry lng st of chrctrs and abbrs tht cnvys'
         self.assertEqual(expected_text2, candidate_text2)
-
-    def test_load_content(self):
-        image_directory = 'tests/images/'
-        db = TinyDB(storage=storages.MemoryStorage)
-        content = utils.load_content(db, image_directory)
-        full_image_path = content[0]
-        image_file = full_image_path.replace(image_directory, '')
-        status_text = content[1]
-        self.assertTrue(image_file in IMAGE_NAMES)
-        self.assertEqual(image_file.replace('.jpg', ''), status_text)
 
     def test_get_unused_files(self):
         available_files = list()
