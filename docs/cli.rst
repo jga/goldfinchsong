@@ -38,6 +38,10 @@ Module functions
 
     Uploads an image tweet.
 
+    The :class:`~.goldfinchsong.classes.Manager` class does the actual
+    work; this function contributes logic for extracting configuration
+    settings and creating a ``TinyDB`` instance.
+
     :param str action: An action name.
     :param str conf: File path for a configuration file. By default, this
         function looks for ``goldfinchsong.ini`` under the directory from

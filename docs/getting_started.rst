@@ -5,7 +5,7 @@ Getting Started
 Design intent
 -------------
 
-You use twitter. You've got an image library (with, say, a bunch of jpg and png files) from
+You use twitter. You've got an image library (with, say, a bunch of ``jpg`` and ``png`` files) from
 which you create tweets.  Instead of hand-crafting them on a twitter client or social media
 application, you just want to automate posting tweets of images from your library.  That way,
 your followers still get content from your image library, but you don't have to think about
@@ -70,7 +70,8 @@ configuration file.
 Your first configuration
 ------------------------
 
-At a minimum **goldfinchsong** requires your twitter authentication credentials to post. The command line script
+At a minimum, **goldfinchsong** requires your twitter authentication credentials to post tweets, as well
+as a file location for the storage of the simple database used to store tweeted images. The command line script
 included in the package expects these credentials to be placed in a configuration **ini** file. Read
 the :doc:`configuration section </configuration>` for details.
 
@@ -107,7 +108,7 @@ Preparing your image names
 --------------------------
 
 When your run the ``goldfinchsong`` command, it generates a status text based on your
-images file name. The status text must not exceed the character constraints imposed by
+image's file name. The status text must not exceed the character constraints imposed by
 twitter but it should also remain legible.
 
 To create a status text, ``goldfinchsong`` first transforms all underscores to blank spaces.
