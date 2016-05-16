@@ -1,4 +1,7 @@
-"""Command line interface module.
+"""
+Command line interface module.
+
+The default logging configuration includes a ``StreamHandler`` and ``RotatingFileHandler``.
 
 Attributes:
     LOGGER_CONFIG (dict): Logging configuration settings. Includes formatters, handlers, loggers
@@ -46,6 +49,7 @@ LOGGER_CONFIG = {
     }
 }
 
+
 def get_image_directory(command_line_input, active_configuration):
     """
     Provides path to image directory.
@@ -74,7 +78,7 @@ def parse_configuration(config_parser):
             loaded with local configuration file.
 
     Returns:
-        dict: The returned dict containts twitter credentials, any text conversions, and
+        dict: The returned dict contains twitter credentials, any text conversions, and
             any image and/or log configuration information made available.
     """
     active_configuration = dict()
@@ -113,6 +117,10 @@ def run(action, conf, images):
     """
     Uploads an image tweet.
 
+    The :class:`~.goldfinchsong.classes.Manager` class does the actual
+    work; this function contributes logic for extracting configuration
+    settings and creating a ``TinyDB`` instance.
+
     Arguments:
         action (str): An action name.
         conf (str): File path for a configuration file. By default, this
@@ -121,6 +129,7 @@ def run(action, conf, images):
         images (str): File path to a directory with images that will be uploaded by tweets.
     """
     config_parser = configparser.ConfigParser()
+    # make parsing of config file names case-sensitive
     config_parser.optionxform = str
     config_parser.read(conf)
     if config_parser.has_section('goldfinchsong'):
@@ -136,6 +145,6 @@ def run(action, conf, images):
             content = manager.post_tweet()
             logger.info('Sent POST with image {0} and text {1}'.format(content[0], content[1]))
         else:
-            logger.error('That command action is not supported.')
+            logger.error('The "{0}" action is not supported.'.format(action))
     else:
         logger.error('Twitter credentials and DB settings must be placed within ini file.')
