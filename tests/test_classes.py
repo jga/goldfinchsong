@@ -1,4 +1,5 @@
 import configparser
+import os
 import unittest
 import pytest
 from tinydb import TinyDB, Query, storages
@@ -34,10 +35,14 @@ class ManagerTests(unittest.TestCase):
         active_configuration = parse_configuration(config_parser)
         credentials = active_configuration['credentials']
         text_conversions = active_configuration['text_conversions']
-        db = TinyDB(storage=storages.MemoryStorage)
-        manager = Manager(credentials, db, active_configuration['image_directory'], text_conversions)
-        manager.api = MockManagerAPI()
-        manager.post_tweet()
-        tweets = db.all()
-        self.assertEqual(len(tweets), 1)
+        try:
+            db = TinyDB(active_configuration['db_location'])
+            manager = Manager(credentials, db, active_configuration['image_directory'], text_conversions)
+            manager.api = MockManagerAPI()
+            manager.post_tweet()
+            tweets = db.all()
+            self.assertEqual(len(tweets), 1)
+        finally:
+            if os.path.isfile(active_configuration['db_location']):
+                os.remove(active_configuration['db_location'])
 
