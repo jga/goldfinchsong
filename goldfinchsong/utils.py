@@ -6,7 +6,6 @@ import random
 import re
 from os import listdir
 from os.path import isfile, join
-from tinydb import TinyDB, Query
 import tweepy
 
 
@@ -120,12 +119,14 @@ def get_posted_files(db):
     """
     Extracts a set of image file names for persisted tweets.
 
+    The application's expected image file format is ``an-image-name-without-the-path.png``. So,
+    it does not include the path to the image file in the saved string.
+
     Args:
         db: TinyDB instance.
 
     Returns:
         set
-
     """
     posted_files = set()
     all_tweets = db.all()
@@ -140,6 +141,10 @@ def get_unused_files(db, available_files):
     by taking out used images from available images. If all
     images have been used, the database is purged, allowing for
     repetition of past images.
+
+    The application's expected image file format for available files is
+    ``an-image-name-without-the-path.png``. It should not include the
+    path to the image file in the saved string.
 
     Args:
         db: TinyDB instance.
@@ -237,7 +242,7 @@ def to_compact_text(candidate_text, maximum_length=117, text_conversions=None):
                 return chopped_text if chopped_text else ''
 
 
-def extract_status_text(file_name, text_conversions, maximum_length=117):
+def extract_status_text(file_name, text_conversions=None, maximum_length=117):
     """
 
     Provides a tweet's text status based on a file name.
